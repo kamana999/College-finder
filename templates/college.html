@@ -1,0 +1,114 @@
+{% extends 'index.html' %}
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg" style="background: #a71d2a" id="nav1">
+        <a href="{% url 'home' %}" class="navbar-brand text-white">FindIT...</a>
+        <ul class="navbar-nav ">
+             <li class="nav-item"><a href="{% url 'college' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Colleges</strong></a></li>
+             <li class="nav-item"><a href="" class="nav-link text-dark text-uppercase ml-5"> <strong>University</strong></a></li>
+             <li class="nav-item"><a href="{% url 'exam' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Exams</strong></a></li>
+             <li class="nav-item"><a href="{% url 'review' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Review</strong></a></li>
+             <li class="nav-item"><a href="" class="nav-link text-dark text-uppercase ml-5"> <strong>More</strong></a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+             {% if 'login' not in request.session %}
+                <a href="#login" class="btn btn-sm text-white" id="btn1" data-toggle="modal">LOGIN</a>
+                <a href="#signup" class="btn btn-sm text-white" id="btn2" data-toggle="modal">SIGNUP</a>
+            {% else %}
+                 <li class="nav-item"><a href="" class="nav-link text-white ml-3"> <strong>{{ user.student_name }}</strong></a></li>
+                 <a href="{% url 'logout' %}" class="btn btn-sm bg-success text-white">LOGOUT</a>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <nav class="navbar navbar-expand-md navbar-dark py-0 bg-dark" >
+            <ul class="navbar-nav ml-1">
+                <a href="" class="nav-item"><li class="nav-link"><strong>Home</strong></li></a>
+                {% for foo in category %}
+                <li class="nav-item dropdown ml-4 ">
+                    <a class="nav-link dropdown-toggle" href="{% url 'catname' foo.cat_id %}" data-toggle="dropdown"><strong>{{ foo.cat_name }}</strong></a>
+                    <div class="dropdown-menu menu" >
+                    {% for c in course %}
+                        {% if foo.cat_id == c.course_cat.cat_id %}
+                            {% if course|length > 0 %}
+                                <div class="row">
+                                 <div class="col-sm-10 mx-auto">
+                                     <a href="{% url 'cat' c.course_id %}" class="nav-item text-dark small">{{ c.course_title }}</a>
+                                 </div>
+                             </div>
+                            {% else %}
+                                <div class="alert alert-danger"><strong class="text-uppercase">Oops!</strong><br>
+                                    not found any books related this topic or category try with another
+                                </div>
+                            {% endif %}
+
+                        {% endif %}
+                    {% endfor %}
+                     </div>
+                {% endfor %}
+                </li>
+            </ul>
+        </nav>
+
+{% endblock %}
+{% block jumbo %}{% endblock %}
+{% block container1 %}{% endblock %}
+{% block container2 %}{% endblock %}
+{% block container %}
+    <div class="container-fluid" style="margin-top: 1%">
+        <div class="row">
+            <div class="col-lg-3 mt-3">
+                <div class="list-group overflow-auto" style="overflow: scroll; max-height: 50vh">
+                    <a href="" class="list-group-item list-group-item-action list-group-flush bg-secondary text-center text-uppercase text-white sticky-top">Streams</a>
+
+                    <form action="{% url 'search_view' %}" class="sticky-top">
+                        {% csrf_token %}
+                        <input type="search" placeholder="search by course" name="course" class="small form-control form-control-sm"size="30px">
+                        <input type="submit" class="btn btn-sm" hidden  >
+                    </form>
+
+                    {% for c in course %}
+                        <a href="{% url 'cat' c.course_id %}" class="list-group-item list-group-item-action text-center small">{{ c.course_title }}<span class="float-right">&raquo;</span></a>
+                    {% endfor %}
+            </div>
+
+            <div class="list-group overflow-auto mt-5" style="overflow: scroll; max-height: 50vh">
+                <a href="" class="list-group-item list-group-item-action list-group-flush bg-secondary text-center text-uppercase text-white sticky-top">State</a>
+                <form action="{% url 'search_state' %}" class="sticky-top">
+                        {% csrf_token %}
+                        <input type="search" placeholder="search by state" name="state" class="small form-control form-control-sm"size="30px">
+                        <input type="submit" class="btn btn-sm" hidden  >
+                    </form>
+                {% for s in states %}
+                    <a href="{% url 'state' s.id %}" class="list-group-item list-group-item-action text-center small">{{ s.state_name }}</a>
+                {% endfor %}
+            </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="section-header">
+                    <h3 style="font-size: 35px; margin-top: 0px">Our Colleges</h3>
+                </div>
+                <div class="section-body mt-3">
+                    <div class="row">
+                        {% for college in colleges %}
+                            <div class="col-sm-4">
+                                    <a href="{% url 'view' college.college_id %}">
+                                        <div class="feature-list">
+                                            <img src="{{ college.img.url }}" alt="" width="80%" height="200px" class="p-0">
+                                            <div class="detail">
+                                                <h4 class="text-md ml-3 text-capitalize" style="font-size: 20px; color: #1b1e21;color: #4f5767;font-weight: 700;">{{ college.college_name }}</h4>
+                                                <p class="text-md-center text-muted">{{ college.website }}</p>
+                                                <p class="text-md-center text-muted">{{ college.affiliated_to }}</p>
+                                                <p class="text-md-center text-muted">{{ college.phone }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bottom %}{% endblock %}

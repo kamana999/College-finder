@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admissio</title>
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="{% static 'owl.carousel.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'owl.theme.default.min.css' %}">
+
+    <style>
+        body{
+            width: 100%;
+        }
+        .col-lg-3 {
+          display: inline-block;
+          margin-left:-4px;
+          }
+        .carousel-indicators .active {
+          background-color: gray;
+            }
+        body .carousel-indicator li{
+          background-color: gray;
+
+          }
+        body .carousel-indicators{
+          bottom: -50px;
+          }
+        body .no-gutters{
+           padding-left: 0;
+           padding-right: 0;
+           }
+        body #full{
+            height: 95vh;
+            position: relative;
+        }
+        #slider-area{
+            position: absolute;
+            height: 95vh;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+        #slider-area .owl-item div{
+            height: 95vh;
+            width: 100vw;
+            background-repeat: no-repeat;
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: 50% 50%;
+            /*-webkit-filter: blur(3px); /* Safari 6.0 - 9.0 */
+            /*filter: blur(3px);*/
+        }
+        #slider-text{
+            position: absolute;
+            left: 15%;
+            top: 25%;
+            z-index: 10;
+            text-align: center;
+        }
+        #slider-text h2{
+            font-size: 45px;
+            font-family: "Apple Color Emoji";
+            text-shadow: #1b1e21;
+            color: yellow;
+            text-align: center;
+        }
+        #slider-text p{
+            font-size: 15px;
+            color: wheat;
+        }
+        .overlay{
+            position: absolute;
+            width: 100%;
+            height: 91%;
+            z-index: 1;
+            background-color: #000000a1;
+            top: 8%;
+        }
+        #nav1 .navbar-brand{
+            font-family: Roboto;
+            font-size: 20px;
+        }
+        #nav2 .navbar-brand{
+            font-family: Roboto;
+            font-size: 20px;
+            text-transform: none ;!important;
+        }
+        #nav3{
+            position: absolute;
+            top: 8%;
+            z-index: 10;
+        }
+        #nav3 a{
+            color: floralwhite;
+            text-transform: uppercase;
+            margin: 0 15px;
+        }
+        #nav2 a{
+            text-transform: uppercase;
+            font-size: 15px;
+            margin: 0 15px;
+        }
+        .container-fluid section{
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+        }
+        .col-sm-10{
+            position: relative;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        .col-centered{
+            float: none!important;
+            display: block!important;
+        }
+        .section-header{
+            text-align: center;
+            padding-top: 20px;
+        }
+        .section-header h3{
+            color: #117a8b;
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            margin-top: 20px;
+            line-height: 1.1;
+        }
+        .section-header p{
+            line-height: 1.4;
+            color: #9d9d9d;
+            font-weight: 400;
+            font-size: .937rem;
+        }
+        .section-body{
+            margin-top: 50px;
+            text-align: center!important;
+        }
+        .col-sm-4{
+            position: relative;
+            box-sizing: border-box;
+        }
+        .col-sm-4 a{
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .feature-list{
+            padding: 20px 10px 10px;
+            margin-bottom: 30px;
+        }
+        .col-sm-4 img{
+            width: 70%;
+            height: 180px;
+            margin-left: 10%;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .col-sm-4 h4{
+            font-size: 20px;
+            color: #1b1e21;
+        }
+        .col-sm-4 p{
+            margin: 0 0 10px;
+            text-decoration: none;
+        }
+        .col-sm-4:hover{
+            background: whitesmoke;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 15px 50px;
+        }
+        .col-sm-2{
+            display: inline-block;
+            width: 20%;
+            padding: 20px 10px 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .col-sm-2 a{
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .col-sm-2 h4{
+            padding-top: 5px;
+            font-size: 20px;
+            color: #1b1e21;
+        }
+        .col-sm-2 p{
+            margin: 0 0 10px;
+            text-decoration: none;
+            color: gray;
+        }
+        .col-sm-2:hover{
+            background: ghostwhite;
+        }
+    </style>
+
+</head>
+<body>
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg" style="background: #a71d2a" id="nav1">
+        <a href="{% url 'home' %}" class="navbar-brand text-white">FindIT...</a>
+        <ul class="navbar-nav ">
+             <li class="nav-item"><a href="{% url 'college' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Colleges</strong></a></li>
+             <li class="nav-item"><a href="" class="nav-link text-dark text-uppercase ml-5"> <strong>University</strong></a></li>
+             <li class="nav-item"><a href="{% url 'exam' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Exams</strong></a></li>
+             <li class="nav-item"><a href="{% url 'review' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Review</strong></a></li>
+             <li class="nav-item"><a href="" class="nav-link text-dark text-uppercase ml-5"> <strong>More</strong></a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+             {% if 'login' not in request.session %}
+                <a href="#login" class="btn btn-sm text-white" id="btn1" data-toggle="modal">LOGIN</a>
+                <a href="#signup" class="btn btn-sm text-white" id="btn2" data-toggle="modal">SIGNUP</a>
+            {% else %}
+                 <li class="nav-item"><a href="" class="nav-link text-white ml-3"> <strong>{{ user.student_name }}</strong></a></li>
+                 <a href="{% url 'logout' %}" class="btn btn-sm bg-success text-white">LOGOUT</a>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <nav class="navbar navbar-expand-md navbar-dark py-0" id="nav3">
+            <ul class="navbar-nav ml-1">
+                <a href="" class="nav-item"><li class="nav-link"><strong>Home</strong></li></a>
+                {% for foo in category %}
+                <li class="nav-item dropdown ml-3 ">
+                    <a class="nav-link dropdown-toggle" href="{% url 'catname' foo.cat_id %}" data-toggle="dropdown" style="font-size: small !important;"><strong>{{ foo.cat_name }}</strong></a>
+                    <div class="dropdown-menu menu" >
+                    {% for c in course %}
+                        {% if foo.cat_id == c.course_cat.cat_id %}
+                                <div class="row">
+                                 <div class="col-sm-10 mx-auto">
+                                     <a href="{% url 'cat' c.course_id %}" class="nav-item text-dark" style="font-size: small !important;">{{ c.course_title }}</a>
+                                 </div>
+                             </div>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+                </li>
+            </ul>
+        </nav>
+
+    <nav class="navbar navbar-expand-md sticky-top py-0" id="nav2">
+        <a href="" class="navbar-brand"><strong>FindIT.....</strong></a>
+        <ul class="navbar-nav">
+            {% for foo in category %}
+                <li class="nav-item dropdown ml-3 ">
+                    <a class="nav-link dropdown-toggle" href="{% url 'catname' foo.cat_id %}" data-toggle="dropdown" style="font-size: small !important;"><strong>{{ foo.cat_name }}</strong></a>
+                    <div class="dropdown-menu menu" >
+                    {% for c in course %}
+                        {% if foo.cat_id == c.course_cat.cat_id %}
+                                <div class="row">
+                                 <div class="col-sm-10 mx-auto">
+                                     <a href="{% url 'cat' c.course_id %}" class="nav-item text-dark" style="font-size: small !important;">{{ c.course_title }}</a>
+                                 </div>
+                             </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}
+
+{% block jumbo %}
+   <div id="full">
+        <div id="slider-area" class="owl-carousel">
+            <div><img src="{% static 'background_bottom.gif' %}" alt="" style="height: 90vh;"></div>
+            <div><img src="{% static '4.jpg' %}" alt="" style="height: 90vh"></div>
+            <div><img src="{% static 'iu1.jpg' %}" alt="" style="height: 90vh"></div>
+            <div><img src="{% static 'college-background-10.jpg' %}" alt="" style="height: 90vh"></div>
+        </div>
+   <div id="slider-text">
+       <h2>Welcome... to FindIT</h2>
+       <p><strong>We are providing a website in which you can search any doubts about your colleges, courses or any Exams for you future prepration...</strong></p>
+        <form action="{% url 'search' %}" class="mx-auto">
+            <div class="form-group">
+                {% csrf_token %}
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <input type="search" placeholder="search by college" class="form-control form-control-lg"size="50px" name="search">
+                        <input type="submit" class="btn btn-danger btn-sm" hidden>
+                    </div>
+                </div>
+            </div>
+        </form>
+   </div>
+   </div>
+    <div class="overlay"></div>
+{% endblock %}
+
+{% block container1 %}
+    <div class="container-fluid section mt-0">
+        <div class="row">
+            <div class="col-sm-10 col-centered" style="padding-left: 15%">
+                <div class="section-header">
+                    <h3>Find Everything Here..</h3>
+                    <p class="text-center ml-lg-5 text-muted" style="font-size: 18px;">We are providing a website in which you can search any doubts about your colleges, courses or any Exams for you future prepration...</p>
+                </div>
+                <div class="section-body mt-5">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a href="{% url 'college' %}">
+                                <div class="feature-list">
+                                    <img src="{% static '792275_school_512x512.png' %}" alt="" width="80%" height="200px">
+                                    <div class="detail">
+                                        <h4 class="text-md ml-3" style="font-size: 20px; color: #1b1e21;color: #4f5767;font-weight: 700;">Find Best College</h4>
+                                        <p class="text-md-center text-muted">Learn about the best of bests <br>in the country.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                         <div class="col-sm-4">
+                            <a href="{% url 'exam' %}">
+                                <div class="feature-list">
+                                    <img src="{% static 'pngtree-exam-icon-isolated-on-abstract-background-png-image_1776800.jpg' %}" alt="" width="80%" height="200px">
+                                    <div class="detail">
+                                        <h4 class="text-md ml-3" style="font-size: 20px; color: #1b1e21;color: #4f5767;font-weight: 700;">Explore Exams</h4>
+                                        <p class="text-md-center text-muted">Learn about the best of bests <br>in the country.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                         <div class="col-sm-4">
+                            <a href="{% url 'course_page' %}">
+                                <div class="feature-list">
+                                    <img src="{% static 'depositphotos_81198296-stock-illustration-examination-flat-red-color-rounded.jpg' %}" alt="" width="80%" height="200px">
+                                    <div class="detail">
+                                        <h4 class="text-md ml-3" style="font-size: 20px; color: #1b1e21;color: #4f5767;font-weight: 700;">Top Courses</h4>
+                                        <p class="text-md-center text-muted">Learn about the best of bests <br>in the country.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                         <div class="col-sm-4">
+                            <a href="{% url 'review' %}">
+                                <div class="feature-list">
+                                    <img src="{% static 'images.png' %}" alt="" width="80%" height="200px">
+                                    <div class="detail">
+                                        <h4 class="text-md ml-3" style="font-size: 20px; color: #1b1e21;color: #4f5767;font-weight: 700;">Write Review</h4>
+                                        <p class="text-md-center text-muted">Learn about the best of bests <br>in the country.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                         <div class="col-sm-4">
+                            <a href="">
+                                <div class="feature-list">
+                                    <img src="{% static '856822.png' %}" alt="" width="80%" height="200px">
+                                    <div class="detail">
+                                        <h4 class="text-md ml-3" style="font-size: 20px; color: #1b1e21;color: #4f5767;font-weight: 700;">Education Loan</h4>
+                                        <p class="text-md-center text-muted">Learn about the best of bests <br>in the country.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                         <div class="col-sm-4">
+                            <a href="{% url 'addmission_page' %}">
+                                <div class="feature-list">
+                                    <img src="{% static 'addd.png' %}" alt="" width="80%" height="200px">
+                                    <div class="detail">
+                                        <h4 class="text-md ml-3" style="font-size: 20px; color: #1b1e21;color: #4f5767;font-weight: 700;">Addmission</h4>
+                                        <p class="text-md-center text-muted">Learn about the best of bests <br>in the country.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container2 %}
+    <div class="container-fluid section mt-5" style="background: #f5c6cb; padding-right: 15px; padding-left: 15%; margin-right: auto; margin-left: auto;box-sizing: border-box;">
+        <div class="row">
+            <div class="col-sm-10 col-centered" style="padding-left: 15px; padding-right: 15px;position: relative;">
+                <div class="section-header">
+                    <h3>Choose As You Want...</h3>
+                    <p class="text-center ml-lg-5 text-muted" style="font-size: 18px;">We are providing a website in which you can search any doubts about your colleges, courses or any Exams for you future prepration...</p>
+                </div>
+                <div class="section-body" style="margin-top: 30px;padding-bottom: 20px">
+                   <div class="row" style="margin-top: 30px; padding-bottom: 20px;">
+                        <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '2752824.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Engineering</h4>
+                                        <p>45454  College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '478533.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Medical</h4>
+                                        <p>200 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '2767586.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Arts</h4>
+                                        <p>500 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                       </div>
+                        <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '1019709.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Commerce</h4>
+                                        <p>252 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '1087902.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Management</h4>
+                                        <p>1100 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                       </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '1176562.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Law</h4>
+                                        <p>544 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '2393588.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Computer Science</h4>
+                                        <p>545 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '1972776.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Mass Comunication</h4>
+                                        <p>444 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '2736580.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Hotel Management</h4>
+                                        <p>885 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '2752472.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Design</h4>
+                                        <p>441 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '2317858.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Aeronautics</h4>
+                                        <p>214 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '483475.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Dental</h4>
+                                        <p>521 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '2674639.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Agriculture</h4>
+                                        <p>411 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '2768034.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Architecture</h4>
+                                        <p>112 College</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                       <div class="col-sm-2">
+                            <div class="list">
+                                <a href="">
+                                    <img src="{% static '1935443.svg' %}" alt="" width="50px" height="50px">
+                                    <div class="details">
+                                        <h4>Vocational Course</h4>
+                                        <p>kkkkkkkk</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container %}
+    <div class="container-fluid"style="background: #f4f4f4; margin-bottom: 15px ">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row mt-3">
+                    <div class="container">
+                    <h1 class="h3 ml-3" style="font-family: 'Imprint MT Shadow'; color: #117a8b"><strong> Top Colleges</strong></h1>
+                        <div id="demo" class="carousel slide my-3" data-ride="carousel">
+                            <ul class="carousel-indicators">
+                                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                                {% for foo in range %}
+                                    <li data-target="#demo" data-slide-to="{{ foo }}"></li>
+                                {% endfor %}
+                            </ul>
+                            <div class="container carousel-inner no-gutters">
+                                <div class="carousel-item active">
+
+                                    {% for foo in college|slice:"0:" %}
+                                        <div class="col-lg-3">
+                                            <div class="card">
+                                                <img src="{{ foo.img.url }}" alt="card image cap" class="card-img-top" width="100%" height="200px">
+                                                <h6 class="text-dark">Rating: {{ average }}/10 </h6>
+                                                <div class="card-body">
+                                                    <h4 class="card-title text-truncate text-bold">{{ foo.college_name }}</h4>
+                                                    <a href="{% url 'view' foo.college_id %}"><h3 class="h6 text-truncate  text-dark">{{ foo.website }}</h3></a>
+                                                    <span class="badge badge-dark text-light">{{ foo.email }}</span><br>
+                                                    <span class="badge badge-dark text-light">{{ foo.phone }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                                    </div><div class="carousel-item">
+                                            {% endif %}
+                                        {% endfor %}
+                                         </div>
+                                    </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+                 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom %}
+    <div class="container-fluid" style="background: #252e3e">
+        <div class="row">
+            <div class="about">
+                <h3 style="font-family: Imprint MT Shadow; font-size: 40px;padding-left: 25%;padding-top: 20px" class="mt-3 text-white">FindIT....</h3>
+                <p class="text-muted pl-2">We are providing a website in which you can search any doubts <br>about your colleges, courses or any Exams for you future<br> prepration.We are providing a website in which you can search any doubts <br>about your colleges, courses or any Exams for yo</p>
+            </div>
+            <div class="quick-links pl-5">
+                <h3 style="font-family: 'Rage Italic'; font-size: 20px;padding-top: 20px;" class="mt-3 text-white">Quick-Links</h3>
+                <a href=""> <li class="text-muted">Home</li></a>
+                <a href=""> <li class="text-muted">Colleges</li></a>
+                <a href=""> <li class="text-muted">Courses</li></a>
+                <a href=""> <li class="text-muted">About</li></a>
+
+            </div>
+            <div class="contact-us">
+                 <h3 style="font-family: 'Rage Italic'; font-size: 20px;padding-top: 20px; padding-left: 100px" class="mt-3 text-white">Contact Us</h3>
+                <form action="">
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% load crispy_forms_tags %}
+<div class="modal fade" id="signup">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header  text-white bg-dark">Create New Account</div>
+            <div class="modal-body">
+                <form action="{% url 'signup' %}" method="post">
+                    {% csrf_token %}
+                    {{ signup_form|crispy }}
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-dark">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-dark" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="login">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">Login Here</div>
+            <div class="modal-body">
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    {{ login_form|crispy }}
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-dark">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-dark" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#nav2").hide();
+        $(window).scroll(function () {
+            if($(this).scrollTop()> 100) {
+                $("#nav2").show();
+                 $("#nav2").css("background","transparent");
+                $("#nav1").hide();
+            }
+            else {
+                $("#nav1").show();
+                $("#nav2").hide();
+            }
+
+        });
+
+        $(window).scroll(function () {
+            if($(this).scrollTop()> 620){
+                $("#nav2").show();
+                $("#nav2").css("background","#a71d2a");
+                $("#nav2 a").css("color","black");
+            }
+            else
+                 $("#nav2 a").css("color","white");
+
+        })
+
+        $("#btn1").hover(function () {
+            $(this).css("background-color", "#0A3D62");
+        }, function () {
+            $(this).css("background-color", "#a71d2a");
+
+        });
+
+        $("#btn2").hover(function () {
+            $(this).css("background-color", "#218F76");
+        }, function () {
+            $(this).css("background-color", "#a71d2a");
+
+        });
+        $("#btn4").hover(function () {
+            $(this).css("background-color", "#0A3D62");
+        }, function () {
+            $(this).css("background-color", "transparent");
+
+        });
+        $("#btn5").hover(function () {
+            $(this).css("background-color", "#218F76");
+        }, function () {
+            $(this).css("background-color", "transparent");
+
+        });
+
+       $("#slider-area").owlCarousel({
+          loop:true,
+          autoplay:true,
+           responsive:{
+              0:{
+                  items:1
+              },
+               600:{
+                  items:1
+               },
+               1000:{
+                  items:1
+               },
+           }
+
+       });
+
+    });
+</script>
+
+</body>
+</html>
+

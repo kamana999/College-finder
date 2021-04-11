@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% block navbar %}
+{% endblock %}
+{% block jumbo %}
+
+{% endblock %}
+{% block container1 %}
+
+{% endblock %}
+{% block container2 %}
+
+{% endblock %}
+{% block container %}
+    {% load crispy_forms_tags %}
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{% url 'add' %}" method="post" class="text-dark">
+                            {% csrf_token %}
+                                {{ add|crispy }}
+                            <input type="submit" class="btn btn-warning">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+{% block bottom %}
+
+{% endblock %}
+
+
+
+
+

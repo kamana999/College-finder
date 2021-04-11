@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+<nav class="navbar navbar-expand-md sticky-top" style="background: #a71d2a">
+    <a href="" class="navbar-brand text-white">FindIT....</a>
+</nav>
+</head>
+<body style="background: lavender">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action small active">Dashboard</a>
+                    <a href="{% url 'insert' %}" class="list-group-item list-group-item-action small">Insert College</a>
+                    <a href="{% url 'add' %}" class="list-group-item list-group-item-action small">College Course</a>
+                    <a href="" class="list-group-item list-group-item-action small">College Course</a>
+                    <a href="" class="list-group-item list-group-item-action small">College Course</a>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card border-secondary shadow-lg">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ students }}</h1>
+                            </div>
+                             <div class="card-footer bg-secondary text-white">
+                                Total Students
+                             </div>
+                        </div>
+                    </div> <div class="col-lg-3">
+                        <div class="card border-secondary shadow-lg">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ college }}</h1>
+                            </div>
+                             <div class="card-footer bg-secondary text-white">
+                                Total College
+                             </div>
+                        </div>
+                    </div> <div class="col-lg-3">
+                        <div class="card border-secondary shadow-lg">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ course }}</h1>
+                            </div>
+                             <div class="card-footer bg-secondary text-white">
+                                Total Course
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

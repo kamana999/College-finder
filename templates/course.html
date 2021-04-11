@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg" style="background: #a71d2a" id="nav1">
+        <a href="{% url 'home' %}" class="navbar-brand text-white">FindIT...</a>
+        <ul class="navbar-nav ">
+             <li class="nav-item"><a href="{% url 'college' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Colleges</strong></a></li>
+             <li class="nav-item"><a href="" class="nav-link text-dark text-uppercase ml-5"> <strong>University</strong></a></li>
+             <li class="nav-item"><a href="{% url 'exam' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Exams</strong></a></li>
+             <li class="nav-item"><a href="{% url 'review' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Review</strong></a></li>
+             <li class="nav-item"><a href="" class="nav-link text-dark text-uppercase ml-5"> <strong>More</strong></a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+             {% if 'login' not in request.session %}
+                <a href="#login" class="btn btn-sm text-white" id="btn1" data-toggle="modal">LOGIN</a>
+                <a href="#signup" class="btn btn-sm text-white" id="btn2" data-toggle="modal">SIGNUP</a>
+            {% else %}
+                 <li class="nav-item"><a href="" class="nav-link text-white ml-3"> <strong>{{ user.student_name }}</strong></a></li>
+                 <a href="{% url 'logout' %}" class="btn btn-sm bg-success text-white">LOGOUT</a>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <nav class="navbar navbar-expand-md navbar-dark py-0 bg-dark" >
+            <ul class="navbar-nav ml-1">
+                <a href="" class="nav-item"><li class="nav-link"><strong>Home</strong></li></a>
+                {% for foo in category %}
+                <li class="nav-item ml-4 ">
+                    <a class="nav-link" href="{% url 'course_view' foo.cat_id %}"><strong>{{ foo.cat_name }}</strong></a>
+                {% endfor %}
+                </li>
+            </ul>
+        </nav>
+{% endblock %}
+{% block jumbo %}
+    {% load static %}
+    <img src="{% static 'notebook-diaries-pen-photo-wallpaper-1680x1050.jpg' %}" alt="" width="100%" height="450px">
+    <div id="slider-text" style="left: 55%; top: 30%">
+       <h2><strong>Search From More than 500 Courses  </strong> | In INDIA</h2>
+        <form action="" class="mx-auto">
+            <div class="form-group">
+                {% csrf_token %}
+                <div class="row align-items-center">
+                    <div class="col-lg-12 mt-5">
+                        <input type="search" placeholder="Search by college and course" class="form-control form-control-lg"size="50px" name="search">
+                        <input type="submit" class="btn btn-danger btn-sm" hidden>
+                    </div>
+                </div>
+            </div>
+        </form>
+   </div>
+{% endblock %}
+{% block container1 %}
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-12 mx-auto p-5">
+            <div class="row">
+                {% for foo in category %}
+                <div class="col-md-4 p-3">
+                    <a href="{% url 'course_view' foo.cat_id %}">
+                        <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-color: gray">
+                            <div class="card-header">
+                                <img src="{{ foo.cat_icon.url }}" alt="" width="60px" height="60px">
+                                <h5>{{ foo.cat_name }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+{% block container2 %}{% endblock %}
+{% block container %}{% endblock %}
+{% block bottom %}{% endblock %}

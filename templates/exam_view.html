@@ -1,0 +1,109 @@
+{% extends 'index.html' %}
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg" style="background: #a71d2a" id="nav1">
+        <a href="{% url 'home' %}" class="navbar-brand text-white">FindIT...</a>
+        <ul class="navbar-nav ">
+             <li class="nav-item"><a href="{% url 'college' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Colleges</strong></a></li>
+             <li class="nav-item"><a href="" class="nav-link text-dark text-uppercase ml-5"> <strong>University</strong></a></li>
+             <li class="nav-item"><a href="{% url 'exam' %}" class="nav-link text-dark text-uppercase ml-5"> <strong>Exams</strong></a></li>
+             <li class="nav-item"><a href="" class="nav-link text-dark text-uppercase ml-5"> <strong>Review</strong></a></li>
+             <li class="nav-item"><a href="" class="nav-link text-dark text-uppercase ml-5"> <strong>More</strong></a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+             {% if 'login' not in request.session %}
+                <a href="#login" class="btn btn-sm text-white" id="btn1" data-toggle="modal">LOGIN</a>
+                <a href="#signup" class="btn btn-sm text-white" id="btn2" data-toggle="modal">SIGNUP</a>
+            {% else %}
+                 <li class="nav-item"><a href="" class="nav-link text-white ml-3"> <strong>{{ user.student_name }}</strong></a></li>
+                 <a href="{% url 'logout' %}" class="btn btn-success btn-sm text-white mb-0">LOGOUT</a>
+            {% endif %}
+        </ul>
+    </nav>
+    <nav class="navbar navbar-expand-md navbar-dark py-0 bg-dark" >
+        <ul class="navbar-nav ml-1">
+            <a href="" class="nav-item"><li class="nav-link"><strong>Home</strong></li></a>
+            {% for foo in category %}
+            <li class="nav-item ml-4 ">
+                <a class="nav-link" href="{% url 'exam_cat' foo.cat_id %}"><strong>{{ foo.cat_name }}</strong></a>
+            {% endfor %}
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li>
+                {% if 'login' not in request.session %}
+                <a href="#signup" class="btn btn-sm text-white btn-dark" id="btn2" data-toggle="modal">Apply</a>
+                {% else %}
+                <a href="#addmission" data-toggle="modal" class="btn btn-warning btn-sm">Apply</a>
+                {% endif %}
+            </li>
+        </ul>
+        </nav>
+{% endblock %}
+{% block jumbo %}
+   <div class="container">
+        <div class="section-header">
+            <h3 style="font-size: 35px; margin-top: 0px">{{ exams.exam_title }} | {{ exams.exam_name }} Application Form , Syllabus, Pattern </h3>
+        </div>
+         <p class="pt-4 pb-3 pl-5 pr-5 text-muted" style="font-family: 'sans-serif'; font-size: 25px;">{{ exams.content }}</p>
+        <h3 class="ml-5">Latest Application Forms</h3>
+        <p  class="pt-3 pb-3 pl-5 pr-5 text-muted" style="font-size: 18px">{{ exams.application_process }}</p>
+        <h3 class="ml-5 mt-0"> Application Fee</h3>
+        <p  class="pt-2 pb-3 pl-5 pr-5 text-muted" style="font-size: 18px">{{ exams.application_fee }}</p>
+        <h3 class="ml-5 mt-0"> Application date</h3>
+        <p  class=" pb-3 pl-5 pr-5 text-muted" style="font-size: 18px">{{ exams.application_date }}</p>
+        <h3 class="ml-5 mt-0">Exam date-</h3>
+        <p  class=" pb-3 pl-5 pr-5 text-muted" style="font-size: 18px">{{ exams.date_of_exam }}</p>
+        <h3 class="ml-5 mt-0"> Result date</h3>
+        <p  class=" pb-3 pl-5 pr-5 text-muted" style="font-size: 18px">{{ exams.release_date }}</p>
+        <h3 class="ml-5 mt-0"> Sllyabus</h3>
+        <p  class=" pb-3 pl-5 pr-5 text-muted" style="font-size: 18px">{{ exams.syllabus }}</p>
+        <h3 class="ml-5 mt-0">Exam Center</h3>
+        <p  class=" pb-3 pl-5 pr-5 text-muted" style="font-size: 18px">{{ exams.exam_center }}</p>
+        <h3 class="ml-5 mt-0">Eligiblity </h3>
+        <p  class=" pb-3 pl-5 pr-5 text-muted" style="font-size: 18px">{{ exams.exam_eligiblity }}</p>
+        <h3 class="ml-5 mt-0">Age Limit</h3>
+        <p  class=" pb-3 pl-5 pr-5 text-muted" style="font-size: 18px">{{ exams.age_limit }}</p>
+        {% if 'login' not in request.session %}
+            <a href="#signup" class="btn btn-sm text-white btn-dark" id="btn2" data-toggle="modal">Apply</a>
+            {% else %}
+                <a href="#addmission" data-toggle="modal" class="btn btn-dark btn-block mb-3">Apply</a>
+                {% load crispy_forms_tags %}
+                        <div class="modal fade" id="addmission">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Addmission Form</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{% url 'addmission' %}" method="post">
+                                            {{ addm|crispy }}
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-dark">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        {% endif %}
+   </div>
+{% endblock %}
+{% block container1 %}
+
+{% endblock %}
+{% block container2 %}
+
+{% endblock %}
+{% block container %}
+
+{% endblock %}
+{% block bottom %}
+
+{% endblock %}
